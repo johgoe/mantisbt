@@ -412,6 +412,15 @@ function history_get_event_from_row( $p_result, $p_user_id = null, $p_check_acce
 			}
 		}
 
+		if( $v_type == PLUGIN_HISTORY) {            
+			if( !access_has_bug_level( config_get( 'private_bugnote_threshold' ), $v_bug_id, $t_user_id ) && 'Source_changeset_attached' == $v_field_name ) {
+				continue;
+			}
+			if( !access_has_bug_level( config_get( 'private_bugnote_threshold' ), $v_bug_id, $t_user_id ) && 'Source_changeset_removed' == $v_field_name ) {
+				continue;
+			}
+		}
+
 		# tags
 		if( $v_type == TAG_ATTACHED || $v_type == TAG_DETACHED || $v_type == TAG_RENAMED ) {
 			if( !access_has_bug_level( config_get( 'tag_view_threshold', null, $t_user_id, $t_project_id ), $v_bug_id, $t_user_id ) ) {
