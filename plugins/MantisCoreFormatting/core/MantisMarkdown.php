@@ -68,7 +68,7 @@ class MantisMarkdown extends Parsedown
 		$this->table_class = 'table table-nonfluid';
 
 		# XSS protection
-		$this->setSafeMode( true );
+		$this->setSafeMode( false );        
 	}
 
 	/**
@@ -293,6 +293,8 @@ class MantisMarkdown extends Parsedown
 	 */
 	private function processAmpersand( &$p_text ) {
 		$p_text = str_replace( '&amp;', '&', $p_text );
+        $p_text = str_replace( '&lt;', '<', $p_text );
+        $p_text = str_replace( '&quot;', '"', $p_text );
 	}
 
 }
