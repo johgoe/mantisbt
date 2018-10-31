@@ -30,6 +30,9 @@ require_api( 'user_api.php' );
  */
 class AuthMiddleware {
 	public function __invoke( \Slim\Http\Request $request, \Slim\Http\Response $response, callable $next ) {
+		if( $request->getMethod() == 'OPTIONS'){
+		  return $response;
+		}
 		$t_authorization_header = $request->getHeaderLine( HEADER_AUTHORIZATION );
 
 		if( empty( $t_authorization_header ) ) {

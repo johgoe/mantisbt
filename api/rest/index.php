@@ -38,6 +38,7 @@ require_once( $t_restcore_dir . 'AuthMiddleware.php' );
 require_once( $t_restcore_dir . 'CacheMiddleware.php' );
 require_once( $t_restcore_dir . 'OfflineMiddleware.php' );
 require_once( $t_restcore_dir . 'VersionMiddleware.php' );
+require_once( $t_restcore_dir . 'CorsMiddleware.php' );
 
 # Hint to re-used mantisconnect code that it is being executed from REST rather than SOAP.
 # For example, this will disable logic like encoding dates with XSD meta-data.
@@ -85,14 +86,13 @@ $t_container['errorHandler'] = function( $p_container ) {
 };
 
 $g_app = new \Slim\App( $t_container );
-
 # Add middleware - executed in reverse order of appearing here.
 $g_app->add( new ApiEnabledMiddleware() );
 $g_app->add( new AuthMiddleware() );
 $g_app->add( new VersionMiddleware() );
 $g_app->add( new OfflineMiddleware() );
 $g_app->add( new CacheMiddleware() );
-
+$g_app->add( new CorsMiddleware() );
 require_once( $t_restcore_dir . 'config_rest.php' );
 require_once( $t_restcore_dir . 'filters_rest.php' );
 require_once( $t_restcore_dir . 'internal_rest.php' );
